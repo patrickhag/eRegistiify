@@ -16,6 +16,6 @@ app.use("/phone", phoneRoutes);
 app.use(cookieParser());
 dotenv.config();
 
-// const PORT = process.env.PORT || 9001;
+const PORT = process.env.PORT || 3001;
 
-app.listen(9001, () => log("Listening..."));
+app.listen(3001, () => log("Listening..."));

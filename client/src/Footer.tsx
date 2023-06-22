@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <>
-      <footer className='w3-light-grey' style={{ marginTop: "15%" }}>
+      <footer className='w3-light-grey' style={{ marginTop: "10%" }}>
         <div className='w3-row' style={{ marginLeft: "70%" }}>
           <div className='w3-col l6 m12 s12' style={{ marginTop: "7%" }}>
             <h4>
@@ -40,7 +40,7 @@ export default function Footer() {
         <div className='w3-margin w3-padding-32'>
           <div className='w3-display-container'>
             <h6 className='w3-display-left'>
-              &copy;eRegistify All rights reserved 2023.
+              &copy; eRegistify All rights reserved 2023.
             </h6>
             <div className='w3-display-right'>
               <a href='#' style={{ textDecoration: "none" }}>

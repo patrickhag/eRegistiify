@@ -6,8 +6,6 @@ import { useState } from "react";
 export default function RegisterPhone() {
   const { id } = JSON.parse(localStorage.getItem("token"));
   // const navigateTo = useNavigate();
-  console.log(id);
-
   const [formData, setFormData] = useState({
     brand: "",
     model: "",
@@ -31,7 +29,7 @@ export default function RegisterPhone() {
   async function RegisterPhone(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:3001/phone`, {
+      const response = await fetch(`http://localhost:9001/phone`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

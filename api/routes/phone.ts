@@ -65,4 +65,20 @@ router.post("/", async (req: Request, res: Response) => {
   }
 });
 
+// get phone based on id
+
+router.get("/:id", (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const foundPhone = prisma.phone.findFirst({
+      where: {
+        id,
+      },
+    });
+    res.json({ msg: "ok", foundPhone });
+  } catch (error: any) {
+    res.status(400).json({ status: error.message });
+  }
+});
+
 export default router;

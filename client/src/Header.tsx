@@ -65,7 +65,7 @@ export default function Header() {
                   Dashboard
                 </Link>
                 <Link
-                  to={"My Items"}
+                  to={"/all-items"}
                   className='w3-bar-item w3-button w3-mobile'
                 >
                   My Items

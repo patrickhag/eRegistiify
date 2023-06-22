@@ -48,3 +48,14 @@ Content-Type: application/json
   "reportedStatus": "active",
   "userId": "1996dc00-6bd4-4a5e-ae19-51b8bbf0015e"
 }
+
+
+### getting phone based on id
+
+GET http://localhost:9001/phone
+Content-Type: application/json
+
+{
+  "id": "1996dc00-6bd4-4a5e-ae19-51b8bbf0015e"
+}
+  

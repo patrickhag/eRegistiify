@@ -205,6 +205,17 @@
         "description": "Affordable iPhone",
         "reportedStatus": "Good",
         "userId": "7"
+      },
+      {
+        "id": 9,
+        "imeiNumber": "353553574339306",
+        "model": "Infinix X6516",
+        "brand": "Infinix",
+        "dateOfPurchase": "2023-06-07T11:28:00Z",
+        "priceOfPhone": "95000rwf",
+        "description": "Blackish smartphone",
+        "reportedStatus": "Active",
+        "userId": "3"
       }
     ]
   }
