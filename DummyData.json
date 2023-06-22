@@ -1,0 +1,211 @@
+[
+  {
+    "id": "1",
+    "names": "John Doe",
+    "password": "password123",
+    "contactInfo": "1234567890",
+    "email": "john.doe@example.com",
+    "nationalId": "123456789",
+    "address": "123 Main St",
+    "Phone": [
+      {
+        "id": "1",
+        "imeiNumber": "123456789012345",
+        "brand": "Apple",
+        "model": "iPhone 12",
+        "dateOfPurchase": "2022-01-01T00:00:00Z",
+        "priceOfPhone": "999",
+        "description": "Brand new iPhone",
+        "reportedStatus": "Good",
+        "userId": "1"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "names": "Jane Smith",
+    "password": "password456",
+    "contactInfo": "9876543210",
+    "email": "jane.smith@example.com",
+    "nationalId": "987654321",
+    "address": "456 Elm St",
+    "Phone": [
+      {
+        "id": "2",
+        "imeiNumber": "987654321098765",
+        "brand": "Samsung",
+        "model": "Galaxy S21",
+        "dateOfPurchase": "2021-12-15T00:00:00Z",
+        "priceOfPhone": "799",
+        "description": "Used Samsung phone",
+        "reportedStatus": "Fair",
+        "userId": "2"
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "names": "Emily Davis",
+    "password": "passwordabc",
+    "contactInfo": "4449876543",
+    "email": "emily.davis@example.com",
+    "nationalId": "567890123",
+    "address": "321 Maple Ave",
+    "Phone": [
+      {
+        "id": "3",
+        "imeiNumber": "567890123456789",
+        "brand": "Google",
+        "model": "Pixel 4a",
+        "dateOfPurchase": "2023-01-20T00:00:00Z",
+        "priceOfPhone": "499",
+        "description": "New Google phone",
+        "reportedStatus": "Excellent",
+        "userId": "4"
+      },
+      {
+        "id": "4",
+        "imeiNumber": "987654321098765",
+        "brand": "Apple",
+        "model": "iPhone 11",
+        "dateOfPurchase": "2022-05-10T00:00:00Z",
+        "priceOfPhone": "699",
+        "description": "Refurbished iPhone",
+        "reportedStatus": "Good",
+        "userId": "4"
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "names": "Emily Davis",
+    "password": "passwordabc",
+    "contactInfo": "4449876543",
+    "email": "emily.davis@example.com",
+    "nationalId": "567890123",
+    "address": "321 Maple Ave",
+    "Phone": [
+      {
+        "id": "3",
+        "imeiNumber": "567890123456789",
+        "brand": "Google",
+        "model": "Pixel 4a",
+        "dateOfPurchase": "2023-01-20T00:00:00Z",
+        "priceOfPhone": "499",
+        "description": "New Google phone",
+        "reportedStatus": "Excellent",
+        "userId": "4"
+      },
+      {
+        "id": "4",
+        "imeiNumber": "987654321098765",
+        "brand": "Apple",
+        "model": "iPhone 11",
+        "dateOfPurchase": "2022-05-10T00:00:00Z",
+        "priceOfPhone": "699",
+        "description": "Refurbished iPhone",
+        "reportedStatus": "Good",
+        "userId": "4"
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "names": "David Johnson",
+    "password": "passworddef",
+    "contactInfo": "7775551234",
+    "email": "david.johnson@example.com",
+    "nationalId": "345678901",
+    "address": "987 Pine St",
+    "Phone": [
+      {
+        "id": "5",
+        "imeiNumber": "123456789012345",
+        "brand": "Samsung",
+        "model": "Galaxy A52",
+        "dateOfPurchase": "2023-02-28T00:00:00Z",
+        "priceOfPhone": "499",
+        "description": "Brand new Samsung phone",
+        "reportedStatus": "Excellent",
+        "userId": "5"
+      },
+      {
+        "id": "6",
+        "imeiNumber": "987654321098765",
+        "brand": "Motorola",
+        "model": "Moto G Power",
+        "dateOfPurchase": "2023-03-15T00:00:00Z",
+        "priceOfPhone": "299",
+        "description": "Budget-friendly smartphone",
+        "reportedStatus": "Fair",
+        "userId": "5"
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "names": "Sarah Wilson",
+    "password": "passwordxyz",
+    "contactInfo": "2223334444",
+    "email": "sarah.wilson@example.com",
+    "nationalId": "567890123",
+    "address": "654 Oak St",
+    "Phone": [
+      {
+        "id": "7",
+        "imeiNumber": "567890123456789",
+        "brand": "Apple",
+        "model": "iPhone SE",
+        "dateOfPurchase": "2022-07-10T00:00:00Z",
+        "priceOfPhone": "399",
+        "description": "Compact iPhone",
+        "reportedStatus": "Good",
+        "userId": "6"
+      },
+      {
+        "id": "8",
+        "imeiNumber": "987654321098765",
+        "brand": "Google",
+        "model": "Pixel 5",
+        "dateOfPurchase": "2023-05-01T00:00:00Z",
+        "priceOfPhone": "699",
+        "description": "High-end Google phone",
+        "reportedStatus": "Excellent",
+        "userId": "6"
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "names": "Ryan Smith",
+    "password": "passwordpqr",
+    "contactInfo": "9998887777",
+    "email": "ryan.smith@example.com",
+    "nationalId": "901234567",
+    "address": "456 Elm St",
+    "Phone": [
+      {
+        "id": "9",
+        "imeiNumber": "123456789012345",
+        "brand": "Samsung",
+        "model": "Galaxy S20 FE",
+        "dateOfPurchase": "2021-10-05T00:00:00Z",
+        "priceOfPhone": "699",
+        "description": "Samsung flagship",
+        "reportedStatus": "Excellent",
+        "userId": "7"
+      },
+      {
+        "id": "10",
+        "imeiNumber": "987654321098765",
+        "brand": "Apple",
+        "model": "iPhone XR",
+        "dateOfPurchase": "2022-02-20T00:00:00Z",
+        "priceOfPhone": "599",
+        "description": "Affordable iPhone",
+        "reportedStatus": "Good",
+        "userId": "7"
+      }
+    ]
+  }
+]

@@ -1,0 +1,50 @@
+GET http://localhost:3000/
+
+###
+
+  POST http://localhost:3001/user
+  Content-Type: application/json
+
+  {
+          "names": "Emily Brown",
+          "contactInfo": "8901234567",
+          "password": "brown",
+          "email": "emilybrown@example.com",
+          "nationalId": "8901234567",
+          "address": "321 Maple Street"
+  }
+
+### 
+
+
+DELETE http://localhost:9900/delete
+
+###
+
+PATCH  http://localhost:8899/user?id=clirnvnpy0000hgegbfhfvtfo
+Content-Type: application/json
+
+{
+   "names": "John Smith",
+   "contactInfo": "1234567890",
+   "email": "johndoe@example.com",
+   "nationalId": "1234567890",
+   "address": "123 Main Street"
+}
+
+### Create a new phone ######
+
+POST http://localhost:3001/phone
+Content-Type: application/json
+
+{
+  "imeiNumber": "1234567890",
+  "brand": "Samsung",
+  "model": "Galaxy S20",
+  "dateOfPurchase": "2023-06-06T10:00:00Z",
+  "purchaseLocation": "New York",
+  "priceOfPhone": "$1000",
+  "description": "description",
+  "reportedStatus": "active",
+  "userId": "1996dc00-6bd4-4a5e-ae19-51b8bbf0015e"
+}
