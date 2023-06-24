@@ -16,7 +16,7 @@ export default function App() {
             <Route path='/sign-up' element={<RegisterUser />}></Route>
             <Route path='/sign-in' element={<Login />}></Route>
             <Route path='/create' element={<Application />}></Route>
-            <Route path='/all-items' element={<Items />}></Route>
+            <Route path='/my-items' element={<Items />}></Route>
           </Routes>
         </BrowserRouter>
       </UserContextProvider>

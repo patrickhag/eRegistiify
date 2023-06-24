@@ -52,7 +52,7 @@ Content-Type: application/json
 
 ### getting phone based on id
 
-GET http://localhost:9001/phone
+GET http://localhost:3001/phone
 Content-Type: application/json
 
 {

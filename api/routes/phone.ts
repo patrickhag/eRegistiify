@@ -67,12 +67,12 @@ router.post("/", async (req: Request, res: Response) => {
 
 // get phone based on id
 
-router.get("/:id", (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const foundPhone = prisma.phone.findFirst({
+    const { id } = req.body;
+    const foundPhone = await prisma.phone.findMany({
       where: {
-        id,
+        userId: id,
       },
     });
     res.json({ msg: "ok", foundPhone });
