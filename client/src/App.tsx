@@ -1,10 +1,10 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Application from "./pages/RegisterPhone";
-import RegisterUser from "./pages/RegisterUser";
-import Login from "./pages/LoginUser";
-import Dashboard from "./pages/Dashboard";
-import { UserContextProvider } from "./UserContext";
-import Items from "./pages/Items";
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Application from "./pages/RegisterPhone"
+import RegisterUser from "./pages/RegisterUser"
+import Login from "./pages/LoginUser"
+import Dashboard from "./pages/Dashboard"
+import { UserContextProvider } from "./UserContext"
+import Items from "./pages/Items"
 
 export default function App() {
   return (
@@ -21,5 +21,5 @@ export default function App() {
         </BrowserRouter>
       </UserContextProvider>
     </>
-  );
+  )
 }

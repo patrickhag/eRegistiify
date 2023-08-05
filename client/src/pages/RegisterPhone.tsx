@@ -1,11 +1,11 @@
-import { useNavigate, useParams } from "react-router-dom";
-import Footer from "../Footer";
-import Header from "../Header";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom"
+import Footer from "../Footer"
+import Header from "../Header"
+import { useState } from "react"
 
 export default function RegisterPhone() {
-  const { id } = JSON.parse(localStorage.getItem("token"));
-  // const navigateTo = useNavigate();
+  const { id } = JSON.parse(localStorage.getItem("token") as string)
+  const navigateTo = useNavigate()
   const [formData, setFormData] = useState({
     brand: "",
     model: "",
@@ -14,51 +14,50 @@ export default function RegisterPhone() {
     imeiNumber: "",
     description: "",
     reportedStatus: "",
-  });
+  })
 
-  const handleChange = e => {
-    e.preventDefault();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
     setFormData(prevFormData => {
       return {
         ...prevFormData,
         [e.target.name]: e.target.value,
-      };
-    });
-  };
+      }
+    })
+  }
 
   async function RegisterPhone(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      const response = await fetch(`http://localhost:9001/phone`, {
+      const response = await fetch(`http://localhost:3001/phone`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           userId: id,
-          imeiNumber: formData.imeiNumber,
           brand: formData.brand,
           model: formData.model,
           dateOfPurchase: formData.dateOfPurchase,
-          description: formData.description,
           priceOfPhone: formData.priceOfPhone,
+          imeiNumber: formData.imeiNumber,
+          description: formData.description,
           reportedStatus: formData.reportedStatus,
         }),
-      });
-      const data = await response.json();
+      })
+      const data = await response.json()
+      console.log(data)
       if (data.status === "ok") {
-        alert(`Registered successfully`);
-        // navigateTo("/item:id");
-      } else {
-        alert(data.msg);
+        alert("Access granted")
+        navigateTo("/my-items")
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
   return (
     <>
-      <Header />;
+      <Header />
       <div style={{ margin: "5%" }} className='w3-border w3-round w3-padding'>
         <h1>New Item</h1>
         <form onSubmit={RegisterPhone}>
@@ -135,8 +134,8 @@ export default function RegisterPhone() {
           <p style={{ marginLeft: "15px", marginRight: "15px" }}>
             <label>Description/Markings</label>
             <textarea
-              cols='30'
-              rows='5'
+              cols={30}
+              rows={5}
               value={formData.description}
               name='description'
               onChange={handleChange}
@@ -151,5 +150,5 @@ export default function RegisterPhone() {
       </div>
       <Footer />
     </>
-  );
+  )
 }

@@ -10,7 +10,7 @@ export default function Login() {
 
   async function loginUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const response = await fetch("http://localhost:9001/user/login", {
+    const response = await fetch("http://localhost:3001/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,8 +23,6 @@ export default function Login() {
     });
 
     const data = await response.json();
-    console.log(data.id);
-
     if (data.msg === "ok") {
       localStorage.setItem("token", JSON.stringify(data));
       navigateTo("/");

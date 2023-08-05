@@ -1,22 +1,21 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react"
+import { Link, useNavigate, useParams } from "react-router-dom"
 
 export default function Header() {
-  const [redirect, setRedirect] = useState(false);
-  const navigateTo = useNavigate();
-  const { id } = useParams();
-  const loggedIn = localStorage.getItem("token");
+  const [redirect, setRedirect] = useState(false)
+  const navigateTo = useNavigate()
+  const loggedIn = localStorage.getItem("token")
 
   const logout = () => {
-    localStorage.clear();
-    setRedirect(prev => !prev);
-  };
+    localStorage.clear()
+    setRedirect(prev => !prev)
+  }
 
   useEffect(() => {
     if (redirect) {
-      navigateTo("/");
+      navigateTo("/")
     }
-  }, [loggedIn, navigateTo, redirect]);
+  }, [loggedIn, navigateTo, redirect])
 
   return (
     <div className=''>
@@ -26,7 +25,7 @@ export default function Header() {
             href='/'
             className='w3-bar-item w3-button w3-mobile w3-center w3-hover-none'
           >
-            eRegistify
+            eRegistiify
           </a>
         </h3>
         <div className='w3-right'>
@@ -36,7 +35,7 @@ export default function Header() {
           <a href='#' className='w3-bar-item w3-button w3-mobile'>
             Services
           </a>
-          <div className='w3-dropdown-hover'>
+          <div className='w3-dropdown-hover w3-mobile'>
             <button className='w3-button'>
               About <i className='fa fa-caret-down'></i>
             </button>
@@ -56,7 +55,7 @@ export default function Header() {
             Products
           </a>
           {loggedIn && (
-            <div className='w3-dropdown-hover'>
+            <div className='w3-dropdown-hover w3-mobile'>
               <button className='w3-button'>
                 My Acccount <i className='fa fa-caret-down'></i>
               </button>
@@ -65,7 +64,7 @@ export default function Header() {
                   Dashboard
                 </Link>
                 <Link
-                  to={"/all-items"}
+                  to={"/my-items"}
                   className='w3-bar-item w3-button w3-mobile'
                 >
                   My Items
@@ -94,5 +93,5 @@ export default function Header() {
         </div>
       </div>
     </div>
-  );
+  )
 }

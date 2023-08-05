@@ -1,8 +1,9 @@
-import { Router, Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import { Router, Request, Response } from "express"
+import { PrismaClient } from "@prisma/client"
+import { log } from "console"
 
-const prisma = new PrismaClient();
-const router = Router();
+const prisma = new PrismaClient()
+const router = Router()
 
 // Create a new phone
 router.post("/", async (req: Request, res: Response) => {
@@ -16,69 +17,51 @@ router.post("/", async (req: Request, res: Response) => {
       priceOfPhone,
       reportedStatus,
       description,
-    } = req.body;
+    } = req.body
+    const date = new Date(dateOfPurchase)
 
-    const date = new Date(dateOfPurchase);
-
-    // Check if the required fields are provided
-    // if (
-    //   !userId ||
-    //   !imeiNumber ||
-    //   !brand ||
-    //   !model ||
-    //   !dateOfPurchase ||
-    //   !description ||
-    //   !priceOfPhone ||
-    //   !reportedStatus
-    // ) {
-    //   return res.status(400).json({ msg: "Missing required fields" });
-    // }
-
-    // Check if the user exists
     const user = await prisma.user.findUnique({
       where: { id: userId },
-    });
-
+    })
     if (!user) {
-      return res.status(404).json({ msg: "User not found" });
-    }
-
-    // Create a new phone
-    const phone = await prisma.phone.create({
-      data: {
-        imeiNumber,
-        brand,
-        model,
-        dateOfPurchase: date,
-        priceOfPhone,
-        reportedStatus,
-        description,
-        user: {
-          connect: { id: userId },
+      return res.status(404).json({ msg: "User not found" })
+    } else {
+      // Create a new phone
+      const phone = await prisma.phone.create({
+        data: {
+          imeiNumber,
+          brand,
+          model,
+          dateOfPurchase: date,
+          priceOfPhone,
+          reportedStatus,
+          description,
+          user: {
+            connect: { id: userId },
+          },
         },
-      },
-    });
-
-    res.json({ msg: "Access denied", phone });
+      })
+      res.json({ status: "ok", phone })
+    }
   } catch (err: any) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: err.message })
   }
-});
+})
 
 // get phone based on id
 
 router.get("/", async (req: Request, res: Response) => {
   try {
-    const { id } = req.body;
+    const { id } = req.body
     const foundPhone = await prisma.phone.findMany({
       where: {
         userId: id,
       },
-    });
-    res.json({ msg: "ok", foundPhone });
+    })
+    res.json({ msg: "ok", foundPhone })
   } catch (error: any) {
-    res.status(400).json({ status: error.message });
+    res.status(400).json({ status: error.message })
   }
-});
+})
 
-export default router;
+export default router
