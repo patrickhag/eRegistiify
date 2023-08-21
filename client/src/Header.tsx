@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function Header() {
   const [redirect, setRedirect] = useState(false)
@@ -25,7 +25,7 @@ export default function Header() {
             href='/'
             className='w3-bar-item w3-button w3-mobile w3-center w3-hover-none'
           >
-            eRegistiify
+            e-Registiify
           </a>
         </h3>
         <div className='w3-right'>

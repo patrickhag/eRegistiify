@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Header from "../Header"
 import Footer from "../Footer"
 import { Link } from "react-router-dom"
 import { format } from "date-fns"
+import { CardToPrint } from "./CardToPrint"
+import { useReactToPrint } from "react-to-print"
 
 interface allPhoneTypes {
   id: number
@@ -17,6 +19,13 @@ interface allPhoneTypes {
 
 export default function Items() {
   const [allPhones, setAllPhones] = useState<allPhoneTypes[]>([])
+  const [showCard, setShowCard] = useState(false)
+
+  const componentRef = useRef()
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  })
+
   useEffect(() => {
     getPhoneInfo()
   }, [])
@@ -36,7 +45,7 @@ export default function Items() {
   const phoneElements = allPhones.map(phone => {
     return (
       <>
-        <div key={phone.id}>
+        <div key={phone.id} id='printablediv'>
           <h1>{phone.brand} </h1>
           <hr />
           <Link
@@ -45,12 +54,11 @@ export default function Items() {
           >
             Register New Item
           </Link>
-          <Link to={"/"} className='w3-button w3-teal'>
+          <button className='w3-button w3-teal' onClick={handlePrint}>
             Print Item Certificate
-          </Link>
+          </button>
           <hr />
           <h3>Details</h3>
-          <hr />
           <div className='w3-row'>
             <div className='w3-col m4'>
               <p>
@@ -102,7 +110,6 @@ export default function Items() {
                 </span>
               </p>
             </div>
-            <hr />
             <div>
               <h2>Images</h2>
               <hr />
@@ -124,10 +131,12 @@ export default function Items() {
   return (
     <>
       <Header />
+      <CardToPrint ref={componentRef} />
       <div
         className='w3-display-container w3-white'
-        style={{ marginTop: "7%", marginLeft: "5%", marginRight: "5%" }}
+        style={{ marginTop: "3%", marginLeft: "5%", marginRight: "5%" }}
       >
+        <h1 className='w3-center'>All items</h1>
         <div className='w3-row' style={{ padding: "5%" }}>
           {phoneElements}
         </div>

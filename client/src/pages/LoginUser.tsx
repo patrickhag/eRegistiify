@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Footer from "../Footer";
-import Header from "../Header";
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import Footer from "../Footer"
+import Header from "../Header"
 
 export default function Login() {
-  const navigateTo = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigateTo = useNavigate()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   async function loginUser(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+    e.preventDefault()
     const response = await fetch("http://localhost:3001/user/login", {
       method: "POST",
       headers: {
@@ -20,14 +20,14 @@ export default function Login() {
         email,
         password,
       }),
-    });
+    })
 
-    const data = await response.json();
+    const data = await response.json()
     if (data.msg === "ok") {
-      localStorage.setItem("token", JSON.stringify(data));
-      navigateTo("/");
+      localStorage.setItem("token", JSON.stringify(data))
+      navigateTo("/")
     } else {
-      alert(data.msg);
+      alert(data.msg)
     }
   }
 
@@ -36,7 +36,7 @@ export default function Login() {
       <Header />
       <div
         className='w3-border w3-round-large w3-white'
-        style={{ marginTop: "13%", marginLeft: "35%", marginRight: "35%" }}
+        style={{ marginTop: "10%", marginLeft: "35%", marginRight: "35%" }}
       >
         <h5 className='w3-padding' style={{ fontWeight: 500 }}>
           Login and get to <span className='w3-text-teal'>registiify</span>.
@@ -80,5 +80,5 @@ export default function Login() {
       </div>
       <Footer />
     </>
-  );
+  )
 }
