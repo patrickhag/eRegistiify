@@ -3,8 +3,8 @@ import Header from "../Header"
 import Footer from "../Footer"
 import { Link } from "react-router-dom"
 import { format } from "date-fns"
-import { CardToPrint } from "./CardToPrint"
 import { useReactToPrint } from "react-to-print"
+import { CardToPrint } from "./CardToPrint"
 
 interface allPhoneTypes {
   id: number
@@ -19,16 +19,18 @@ interface allPhoneTypes {
 
 export default function Items() {
   const [allPhones, setAllPhones] = useState<allPhoneTypes[]>([])
-  const [showCard, setShowCard] = useState(false)
+  // const [showCard, setShowCard] = useState(false)
 
   const componentRef = useRef()
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  })
 
   useEffect(() => {
     getPhoneInfo()
   }, [])
+
+  const HandlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  })
+  // setShowCard(prev => !prev)
 
   const getPhoneInfo = async () => {
     const response = await fetch("http://localhost:3001/phone", {
@@ -54,7 +56,7 @@ export default function Items() {
           >
             Register New Item
           </Link>
-          <button className='w3-button w3-teal' onClick={handlePrint}>
+          <button className='w3-button w3-teal' onClick={HandlePrint}>
             Print Item Certificate
           </button>
           <hr />
@@ -131,7 +133,7 @@ export default function Items() {
   return (
     <>
       <Header />
-      <CardToPrint ref={componentRef} />
+      <CardToPrint ref={componentRef} phoneInfo={allPhones} />
       <div
         className='w3-display-container w3-white'
         style={{ marginTop: "3%", marginLeft: "5%", marginRight: "5%" }}
