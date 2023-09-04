@@ -1,8 +1,8 @@
-import QrCodeImage from "./../assets/download.png"
 import trustee from "./../assets/trustee.png"
 import logo from "./../assets/logo.png"
-import { useEffect, useState } from "react"
-import QRCode from "react-qr-code"
+import { useEffect, useRef, useState } from "react"
+import QRCodeStyling from "qr-code-styling"
+import { allPhoneTypes } from "./Items"
 
 interface UserInfoTypes {
   address: string
@@ -14,24 +14,60 @@ interface UserInfoTypes {
   password: string
 }
 
-export const CardToPrint = () => {
-  const [userInfo, setUserInfo] = useState<UserInfoTypes>({})
-  const { names } = userInfo
+export const CardToPrint: React.FC<allPhoneTypes> = ({
+  imeiNumber,
+  brand,
+  model,
+  dateOfPurchase,
+  priceOfPhone,
+  description,
+  reportedStatus,
+}) => {
+  const [userInfo, setUserInfo] = useState<UserInfoTypes>()
   const data = localStorage.getItem("token")
   const parsedData = data ? JSON.parse(data) : null
-
+  const ref = useRef<HTMLDivElement>(null)
   const { id } = parsedData ?? {}
 
+  console.log(userInfo)
+
+  const restructuredObject = {
+    imeiNumber,
+    brand,
+    model,
+    dateOfPurchase,
+    priceOfPhone,
+    description,
+    reportedStatus,
+  }
+
+  const userData = JSON.stringify(restructuredObject)
+
   useEffect(() => {
+    const qrCode = new QRCodeStyling({
+      width: 180,
+      height: 180,
+      data: userData,
+      dotsOptions: {
+        color: "#000",
+        type: "rounded",
+      },
+      backgroundOptions: {
+        round: 0.1,
+      },
+    })
+    if (ref.current) qrCode.append(ref.current)
+  }, [userData])
+
+  useEffect(() => {
+    function getUserData() {
+      fetch(`http://localhost:3001/user/${id}`)
+        .then(res => res.json())
+        .then(data => setUserInfo(data))
+        .catch(error => console.log("Error:", error))
+    }
     getUserData()
   }, [id])
-
-  function getUserData() {
-    fetch(`http://localhost:3001/user/${id}`)
-      .then(res => res.json())
-      .then(data => setUserInfo(data))
-      .catch(error => console.log("Error:", error))
-  }
 
   const containerStyles = {
     display: "flex",
@@ -39,6 +75,7 @@ export const CardToPrint = () => {
     justifyContent: "center",
     color: "white",
   }
+
   return (
     <>
       <div style={containerStyles}>
@@ -56,22 +93,26 @@ export const CardToPrint = () => {
               <h3 className='w3-xxlarge w3-cell'>e-Registration</h3>
               <img src={logo} alt='lOGO' className='w3-right' />
             </div>
-            <span className='w3-col l3 s4'>
-              <QRCode
-                value={names}
+            <div className='w3-col l3 s4'>
+              <div
                 style={{
-                  width: "11.5rem",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginLeft: "2rem",
                 }}
-              />
-            </span>
+              >
+                <div ref={ref} />
+              </div>
+            </div>
 
-            <div className='w3-col l3 s4 w3-margin-left'>
-              <h5>{userInfo.names}</h5>
-              <h6>{userInfo.contactInfo}</h6>
+            <div className='w3-col l3 s4' style={{ marginLeft: "5rem" }}>
+              <h5>{userInfo?.names}</h5>
+              <h6>{userInfo?.contactInfo}</h6>
             </div>
           </div>
           <div className='w3-display-container'>
-            <h6>2342-2342-2342-2342</h6>
+            <h6>{imeiNumber}</h6>
             <p className='w3-opacity'>Tip: scan this code for more info!</p>
             <img
               src={trustee}

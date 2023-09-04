@@ -16,7 +16,11 @@ export default function RegisterPhone() {
     reportedStatus: "",
   })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     e.preventDefault()
     setFormData(prevFormData => {
       return {
@@ -46,7 +50,6 @@ export default function RegisterPhone() {
         }),
       })
       const data = await response.json()
-      console.log(data)
       if (data.status === "ok") {
         alert("Access granted")
         navigateTo("/my-items")
@@ -131,6 +134,7 @@ export default function RegisterPhone() {
               placeholder="Provide the status of your Phone whether it's Active/Lost/Stolen"
             />
           </p>
+
           <p style={{ marginLeft: "15px", marginRight: "15px" }}>
             <label>Description/Markings</label>
             <textarea

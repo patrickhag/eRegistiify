@@ -25,7 +25,7 @@ export default function Header() {
             href='/'
             className='w3-bar-item w3-button w3-mobile w3-center w3-hover-none'
           >
-            e-Registiify
+            e-Registration
           </a>
         </h3>
         <div className='w3-right'>
@@ -52,7 +52,7 @@ export default function Header() {
             </div>
           </div>
           <a href='#' className='w3-bar-item w3-button w3-mobile'>
-            Products
+            Items
           </a>
           {loggedIn && (
             <div className='w3-dropdown-hover w3-mobile'>

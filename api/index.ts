@@ -18,4 +18,4 @@ dotenv.config()
 
 const PORT = process.env.PORT
 
-app.listen(PORT, () => log(`Listening on port: ${PORT}`))
+app.listen(PORT, () => log(`Server ready on port: ${PORT}`))

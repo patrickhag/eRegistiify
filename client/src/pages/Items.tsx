@@ -1,12 +1,11 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import Header from "../Header"
 import Footer from "../Footer"
 import { Link } from "react-router-dom"
 import { format } from "date-fns"
-import { useReactToPrint } from "react-to-print"
 import { CardToPrint } from "./CardToPrint"
 
-interface allPhoneTypes {
+export interface allPhoneTypes {
   id: number
   brand: string
   model: string
@@ -19,35 +18,31 @@ interface allPhoneTypes {
 
 export default function Items() {
   const [allPhones, setAllPhones] = useState<allPhoneTypes[]>([])
-  // const [showCard, setShowCard] = useState(false)
+  const [showCard, setShowCard] = useState(true)
 
-  const componentRef = useRef()
+  const data = localStorage.getItem("token")
+  const parsedData = data ? JSON.parse(data) : null
+  const { id } = parsedData ?? {}
+
+  const HandlePrint = () => {
+    setShowCard(prev => !prev)
+  }
 
   useEffect(() => {
-    getPhoneInfo()
-  }, [])
-
-  const HandlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  })
-  // setShowCard(prev => !prev)
-
-  const getPhoneInfo = async () => {
-    const response = await fetch("http://localhost:3001/phone", {
-      method: "GET",
-    })
-    const data = await response.json()
-    if (data.msg === "ok") {
-      setAllPhones(data.foundPhone)
-    } else {
-      alert(data.status)
+    function getPhoneInfo() {
+      fetch(`http://localhost:3001/phone/${id}`)
+        .then(res => res.json())
+        .then(data => setAllPhones(data.foundPhone))
+        .catch(error => console.log("Error:", error))
     }
-  }
+    getPhoneInfo()
+  }, [id])
 
   const phoneElements = allPhones.map(phone => {
     return (
       <>
-        <div key={phone.id} id='printablediv'>
+        {showCard && <CardToPrint {...phone} />}
+        <div>
           <h1>{phone.brand} </h1>
           <hr />
           <Link
@@ -120,7 +115,17 @@ export default function Items() {
                   This phone currently has no images. Add one now!
                 </span>
                 &nbsp;
-                <input type='file' className='w3-input' />
+                <input
+                  type='file'
+                  className='w3-input'
+                  // onChange={handleFileChange}
+                />
+                <button
+                  // onClick={handleSubmit}
+                  className='w3-button w3-margin-top'
+                >
+                  Upload
+                </button>
               </p>
             </div>
             <br />
@@ -133,7 +138,6 @@ export default function Items() {
   return (
     <>
       <Header />
-      <CardToPrint ref={componentRef} phoneInfo={allPhones} />
       <div
         className='w3-display-container w3-white'
         style={{ marginTop: "3%", marginLeft: "5%", marginRight: "5%" }}
@@ -147,3 +151,7 @@ export default function Items() {
     </>
   )
 }
+
+// function cardToBePrinted(allPhones) => {
+
+// }

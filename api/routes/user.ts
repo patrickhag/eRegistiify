@@ -92,7 +92,6 @@ router.patch("/", async (req: Request, res: Response) => {
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params
-
   try {
     const user = await prisma.user.findUnique({
       where: {

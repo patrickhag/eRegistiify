@@ -17,6 +17,8 @@ router.post("/", async (req: Request, res: Response) => {
       reportedStatus,
       description,
     } = req.body
+    console.log(req.body)
+
     const date = new Date(dateOfPurchase)
 
     const user = await prisma.user.findUnique({
@@ -49,9 +51,9 @@ router.post("/", async (req: Request, res: Response) => {
 
 // get phone based on id
 
-router.get("/", async (req: Request, res: Response) => {
+router.get("/:id", async (req: Request, res: Response) => {
   try {
-    const { id } = req.body
+    const { id } = req.params
     const foundPhone = await prisma.phone.findMany({
       where: {
         userId: id,
