@@ -21,11 +21,8 @@ export default function Header() {
     <div className=''>
       <div className='w3-bar w3-teal'>
         <h3 className=''>
-          <a
-            href='/'
-            className='w3-bar-item w3-button w3-mobile w3-center w3-hover-none'
-          >
-            e-Registration
+          <a href='/' className='w3-bar-item w3-button w3-mobile w3-hover-none'>
+            TESA
           </a>
         </h3>
         <div className='w3-right'>
@@ -51,9 +48,9 @@ export default function Header() {
               </a>
             </div>
           </div>
-          <a href='#' className='w3-bar-item w3-button w3-mobile'>
+          <Link to={"/items"} className='w3-bar-item w3-button w3-mobile'>
             Items
-          </a>
+          </Link>
           {loggedIn && (
             <div className='w3-dropdown-hover w3-mobile'>
               <button className='w3-button'>
@@ -63,10 +60,7 @@ export default function Header() {
                 <Link to={"/"} className='w3-bar-item w3-button w3-mobile'>
                   Dashboard
                 </Link>
-                <Link
-                  to={"/my-items"}
-                  className='w3-bar-item w3-button w3-mobile'
-                >
+                <Link to={"/items"} className='w3-bar-item w3-button w3-mobile'>
                   My Items
                 </Link>
                 <Link

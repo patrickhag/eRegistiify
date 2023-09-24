@@ -14,7 +14,6 @@ app.use(cors({ credentials: true, origin: "http://localhost:5173" }))
 app.use("/user", userRoutes)
 app.use("/phone", phoneRoutes)
 app.use(cookieParser())
-dotenv.config()
 
 const PORT = process.env.PORT
 

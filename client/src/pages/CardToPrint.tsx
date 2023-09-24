@@ -23,15 +23,15 @@ export const CardToPrint: React.FC<allPhoneTypes> = ({
   description,
   reportedStatus,
 }) => {
+  const [isComponentVisible, setIsComponentVisible] = useState(true)
   const [userInfo, setUserInfo] = useState<UserInfoTypes>()
+  const qrCodeRef = useRef<QRCodeStyling>(null)
   const data = localStorage.getItem("token")
   const parsedData = data ? JSON.parse(data) : null
   const ref = useRef<HTMLDivElement>(null)
   const { id } = parsedData ?? {}
 
-  console.log(userInfo)
-
-  const restructuredObject = {
+  const structuredObject = {
     imeiNumber,
     brand,
     model,
@@ -41,10 +41,10 @@ export const CardToPrint: React.FC<allPhoneTypes> = ({
     reportedStatus,
   }
 
-  const userData = JSON.stringify(restructuredObject)
+  const userData = JSON.stringify(structuredObject)
 
   useEffect(() => {
-    const qrCode = new QRCodeStyling({
+    qrCodeRef.current = new QRCodeStyling({
       width: 180,
       height: 180,
       data: userData,
@@ -56,7 +56,17 @@ export const CardToPrint: React.FC<allPhoneTypes> = ({
         round: 0.1,
       },
     })
-    if (ref.current) qrCode.append(ref.current)
+    if (ref.current && qrCodeRef.current) {
+      qrCodeRef.current.append(ref.current)
+    }
+  }, [userData])
+
+  useEffect(() => {
+    if (qrCodeRef.current) {
+      qrCodeRef.current.update({
+        data: userData,
+      })
+    }
   }, [userData])
 
   useEffect(() => {
@@ -69,18 +79,28 @@ export const CardToPrint: React.FC<allPhoneTypes> = ({
     getUserData()
   }, [id])
 
-  const containerStyles = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "white",
+  const closeModal = () => {
+    setIsComponentVisible(false)
+  }
+
+  if (!isComponentVisible) {
+    return null
   }
 
   return (
     <>
-      <div style={containerStyles}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "white",
+        }}
+        className='w3-modal w3-animate-zoom'
+        onClick={closeModal}
+      >
         <div
-          className='w3-card w3-round-large w3-margin'
+          className='w3-card w3-round-large w3-margin w3-modal-content'
           style={{
             width: "500px",
             padding: "0.7rem 2rem",
@@ -90,7 +110,7 @@ export const CardToPrint: React.FC<allPhoneTypes> = ({
         >
           <div className='w3-row'>
             <div className='w3-cell-row'>
-              <h3 className='w3-xxlarge w3-cell'>e-Registration</h3>
+              <h3 className='w3-xxlarge w3-cell'>TESA</h3>
               <img src={logo} alt='lOGO' className='w3-right' />
             </div>
             <div className='w3-col l3 s4'>
@@ -122,6 +142,7 @@ export const CardToPrint: React.FC<allPhoneTypes> = ({
           </div>
         </div>
       </div>
+      {/* )} */}
     </>
   )
 }
