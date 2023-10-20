@@ -1,0 +1,20 @@
+.home {
+  margin: 0 5rem;
+  background-color: #f4feff;
+}
+
+.home--header {
+  padding: 2rem;
+}
+
+/* @media (max-width: 768px) {
+  .sideBar {
+    margin: 20% 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .sideBar {
+    margin: 20% 5%;
+  }
+} */

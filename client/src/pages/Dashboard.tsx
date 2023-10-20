@@ -1,12 +1,6 @@
-import Header from "../Header";
-import Footer from "../Footer";
+import React from "react"
+import { Sidebar } from "../components/SideBar"
 
 export default function Dashboard() {
-  return (
-    <>
-      <Header />
-      <div>Dashboard</div>
-      <Footer />
-    </>
-  );
+  return <Sidebar />
 }

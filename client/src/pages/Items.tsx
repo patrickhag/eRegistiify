@@ -4,6 +4,7 @@ import Footer from "../Footer"
 import { Link } from "react-router-dom"
 import { format } from "date-fns"
 import { CardToPrint } from "./CardToPrint"
+import { Sidebar } from "../components/SideBar"
 
 export interface allPhoneTypes {
   id: number
@@ -44,12 +45,16 @@ export default function Items() {
     const isCardVisible = cardVisibility[phone.id] || false
 
     return (
-      <div key={phone.id}>
+      <div
+        key={phone.id}
+        className='w3-card w3-round-large w3-padding'
+        style={{ marginBottom: "2rem" }}
+      >
         {isCardVisible && <CardToPrint {...phone} />}
         <h1>{phone.brand} </h1>
         <hr />
         <Link
-          to={"/create"}
+          to={"/register-device"}
           className='w3-button w3-light-grey w3-margin-right'
         >
           Register New Item
@@ -58,7 +63,7 @@ export default function Items() {
           className='w3-button w3-teal'
           onClick={() => HandlePrint(phone.id)}
         >
-          Print Item Certificate
+          Print Item Identity
         </button>
         <hr />
         <h3>Details</h3>
@@ -132,17 +137,16 @@ export default function Items() {
 
   return (
     <>
-      <Header />
+      <Sidebar />
       <div
         className='w3-display-container w3-white'
-        style={{ marginTop: "3%", marginLeft: "5%", marginRight: "5%" }}
+        style={{ marginTop: "3rem", marginLeft: "23rem", marginRight: "7rem" }}
       >
-        <h1 className='w3-center'>All items</h1>
+        <h1 className='w3-center'>Your items</h1>
         <div className='w3-row' style={{ padding: "5%" }}>
           {phoneElements}
         </div>
       </div>
-      <Footer />
     </>
   )
 }

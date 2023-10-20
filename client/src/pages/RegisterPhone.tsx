@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
-import Footer from "../Footer"
-import Header from "../Header"
 import { useState } from "react"
+import { Sidebar } from "../components/SideBar"
+import "../styles.css"
 
 export default function RegisterPhone() {
   const { id } = JSON.parse(localStorage.getItem("token") as string)
@@ -14,12 +14,14 @@ export default function RegisterPhone() {
     imeiNumber: "",
     description: "",
     reportedStatus: "",
+    selectedValue: "",
   })
 
   const handleChange = (
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLSelectElement>
   ) => {
     e.preventDefault()
     setFormData(prevFormData => {
@@ -47,12 +49,13 @@ export default function RegisterPhone() {
           imeiNumber: formData.imeiNumber,
           description: formData.description,
           reportedStatus: formData.reportedStatus,
+          category: formData.selectedValue,
         }),
       })
       const data = await response.json()
       if (data.status === "ok") {
         alert("Access granted")
-        navigateTo("/my-items")
+        navigateTo("/items")
       }
     } catch (error) {
       console.error(error)
@@ -60,13 +63,39 @@ export default function RegisterPhone() {
   }
   return (
     <>
-      <Header />
-      <div style={{ margin: "5%" }} className='w3-border w3-round w3-padding'>
-        <h1>New Item</h1>
+      <Sidebar />
+      <div
+        className='w3-border w3-round w3-padding sideBar'
+        style={{
+          marginTop: "3rem",
+          marginLeft: "25rem",
+          marginRight: "7rem",
+        }}
+      >
         <form onSubmit={RegisterPhone}>
-          <div className='w3-row-padding'>
+          <h1 className='w3-center'>Add item</h1>
+          <p>
+            <span className='w3-badge'>Tip</span> Section with *(asterisk) are
+            required.
+          </p>
+          <div className='w3-row-padding w3-margin-top'>
+            <label>Category</label> <span className='w3-text-red'>*</span>
+            <select
+              className='w3-select w3-white'
+              value={formData.selectedValue}
+              onChange={handleChange}
+              name='selectedValue'
+            >
+              <option value=''>-- Select device category --</option>
+              <option value='phone'>Phone</option>
+              <option value='laptop'>Laptop</option>
+              <option value='camera'>Camera</option>
+              <option value='tv'>TV</option>
+              <option value='table'>Tablet</option>
+            </select>
             <p className='w3-half'>
-              <label>Brand</label>
+              <label>Brand </label>
+              <span className='w3-text-red'>*</span>
               <input
                 className='w3-input w3-border w3-round'
                 type='text'
@@ -74,9 +103,9 @@ export default function RegisterPhone() {
                 name='brand'
                 onChange={handleChange}
                 placeholder='Brand'
+                required
               />
             </p>
-
             <p className='w3-half'>
               <label>Model</label>
               <input
@@ -89,7 +118,7 @@ export default function RegisterPhone() {
               />
             </p>
             <p className='w3-half'>
-              <label>Purchased Date</label>
+              <label>Purchased Date </label>
               <input
                 className='w3-input w3-border w3-round'
                 type='date'
@@ -97,11 +126,12 @@ export default function RegisterPhone() {
                 name='dateOfPurchase'
                 onChange={handleChange}
                 placeholder='Address'
+                required
               />
             </p>
-
             <p className='w3-half'>
-              <label>Purchased Cost</label>
+              <label>Purchased Cost </label>
+              <span className='w3-text-red'>*</span>
               <input
                 className='w3-input w3-border w3-round'
                 type='text'
@@ -109,11 +139,13 @@ export default function RegisterPhone() {
                 onChange={handleChange}
                 name='priceOfPhone'
                 placeholder='Purchased cost'
+                required
               />
             </p>
           </div>
           <p style={{ marginLeft: "15px", marginRight: "15px" }}>
-            <label>IMEI NUMBER</label>
+            <label>IMEI NUMBER / Serial Number </label>{" "}
+            <span className='w3-text-red'>*</span>
             <input
               className='w3-input w3-border w3-round'
               type='text'
@@ -121,22 +153,27 @@ export default function RegisterPhone() {
               name='imeiNumber'
               onChange={handleChange}
               placeholder='Dial *#06# in Phone to check IMEI Number'
+              required
             />
           </p>
           <p style={{ marginLeft: "15px", marginRight: "15px" }}>
-            <label>Phone Status</label>
+            <label>Device Status </label>
+            <span className='w3-text-red'>*</span>
             <input
               className='w3-input w3-border w3-round'
               type='text'
               value={formData.reportedStatus}
               name='reportedStatus'
               onChange={handleChange}
-              placeholder="Provide the status of your Phone whether it's Active/Lost/Stolen"
+              placeholder="Provide the status of your device whether it's Active/Lost/Stolen"
+              required
             />
           </p>
 
           <p style={{ marginLeft: "15px", marginRight: "15px" }}>
-            <label>Description/Markings</label>
+            <label>Description/Markings </label>
+            <span className='w3-text-red'>*</span>
+
             <textarea
               cols={30}
               rows={5}
@@ -144,7 +181,8 @@ export default function RegisterPhone() {
               name='description'
               onChange={handleChange}
               className='w3-border w3-round w3-block'
-              placeholder='Explain how your device looks like.'
+              placeholder=' Explain how your device looks like.'
+              required
             ></textarea>
           </p>
           <button type='submit' className='w3-margin w3-btn w3-blue w3-round'>
@@ -152,7 +190,6 @@ export default function RegisterPhone() {
           </button>
         </form>
       </div>
-      <Footer />
     </>
   )
 }

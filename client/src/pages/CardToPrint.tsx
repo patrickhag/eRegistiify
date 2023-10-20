@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import QRCodeStyling from "qr-code-styling"
 import { allPhoneTypes } from "./Items"
 
-interface UserInfoTypes {
+export interface UserInfoTypes {
   address: string
   contactInfo: string
   email: string
@@ -31,7 +31,10 @@ export const CardToPrint: React.FC<allPhoneTypes> = ({
   const ref = useRef<HTMLDivElement>(null)
   const { id } = parsedData ?? {}
 
+  const UserId = userInfo?.nationalId
+
   const structuredObject = {
+    UserId,
     imeiNumber,
     brand,
     model,
@@ -41,13 +44,16 @@ export const CardToPrint: React.FC<allPhoneTypes> = ({
     reportedStatus,
   }
 
-  const userData = JSON.stringify(structuredObject)
+  let formattedText = ""
+  for (const key in structuredObject) {
+    formattedText += `${key}: ${structuredObject[key]}\n`
+  }
 
   useEffect(() => {
     qrCodeRef.current = new QRCodeStyling({
       width: 180,
       height: 180,
-      data: userData,
+      data: formattedText,
       dotsOptions: {
         color: "#000",
         type: "rounded",
@@ -59,15 +65,15 @@ export const CardToPrint: React.FC<allPhoneTypes> = ({
     if (ref.current && qrCodeRef.current) {
       qrCodeRef.current.append(ref.current)
     }
-  }, [userData])
+  }, [formattedText])
 
   useEffect(() => {
     if (qrCodeRef.current) {
       qrCodeRef.current.update({
-        data: userData,
+        data: formattedText,
       })
     }
-  }, [userData])
+  }, [formattedText])
 
   useEffect(() => {
     function getUserData() {
@@ -109,8 +115,8 @@ export const CardToPrint: React.FC<allPhoneTypes> = ({
           }}
         >
           <div className='w3-row'>
-            <div className='w3-cell-row'>
-              <h3 className='w3-xxlarge w3-cell'>TESA</h3>
+            <div className='w3-cell-row w3-margin-bottom'>
+              <h3 className='w3-xxlarge w3-cell'>e-Registration</h3>
               <img src={logo} alt='lOGO' className='w3-right' />
             </div>
             <div className='w3-col l3 s4'>
@@ -126,7 +132,7 @@ export const CardToPrint: React.FC<allPhoneTypes> = ({
               </div>
             </div>
 
-            <div className='w3-col l3 s4' style={{ marginLeft: "5rem" }}>
+            <div className='w3-col l5 s5' style={{ marginLeft: "5rem" }}>
               <h5>{userInfo?.names}</h5>
               <h6>{userInfo?.contactInfo}</h6>
             </div>

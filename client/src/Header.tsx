@@ -54,7 +54,7 @@ export default function Header() {
           {loggedIn && (
             <div className='w3-dropdown-hover w3-mobile'>
               <button className='w3-button'>
-                My Acccount <i className='fa fa-caret-down'></i>
+                Acccount <i className='fa fa-caret-down'></i>
               </button>
               <div className='w3-dropdown-content w3-bar-block w3-dark-grey'>
                 <Link to={"/"} className='w3-bar-item w3-button w3-mobile'>
