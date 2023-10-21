@@ -51,7 +51,7 @@ router.post("/login", async (req: Request, res: Response) => {
       return res.status(400).json({ msg: "Invalid credentials" })
     }
     const token = jwt.sign({ email, id: user.id }, JWT_SECRECY)
-    res.status(400).json({ msg: "ok", token, id: user.id })
+    res.status(200).json({ msg: "ok", token, id: user.id })
   } catch (error) {
     console.error(error)
     return res.status(500).json({ msg: "Internal server error" })
@@ -90,6 +90,16 @@ router.patch("/", async (req: Request, res: Response) => {
 
 // get user info
 
+router.get("/users", async (req: Request, res: Response) => {
+  try {
+    const allUser = await prisma.user.findMany()
+    res.status(200).json(allUser)
+  } catch (error) {
+    console.error("Error fetching user:", error)
+    res.status(500).json({ error: "An error occurred" })
+  }
+})
+
 router.get("/:id", async (req, res) => {
   const { id } = req.params
   try {
@@ -98,7 +108,6 @@ router.get("/:id", async (req, res) => {
         id: id,
       },
     })
-
     if (user) {
       res.json(user)
     } else {

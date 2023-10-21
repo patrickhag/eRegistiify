@@ -16,8 +16,8 @@ router.post("/", async (req: Request, res: Response) => {
       priceOfPhone,
       reportedStatus,
       description,
+      category,
     } = req.body
-    console.log(req.body)
 
     const date = new Date(dateOfPurchase)
 
@@ -37,6 +37,7 @@ router.post("/", async (req: Request, res: Response) => {
           priceOfPhone,
           reportedStatus,
           description,
+          category,
           user: {
             connect: { id: userId },
           },
@@ -62,6 +63,27 @@ router.get("/:id", async (req: Request, res: Response) => {
     res.json({ msg: "ok", foundPhone })
   } catch (error: any) {
     res.status(400).json({ status: error.message })
+  }
+})
+
+router.get("/", async (req: Request, res: Response) => {
+  try {
+    const allPhones = await prisma.phone.findMany()
+    res.status(200).json(allPhones)
+  } catch (err) {
+    if (err instanceof Error) {
+      console.error(err)
+    } else {
+      console.error("Unexpected Error", err)
+    }
+  }
+})
+
+router.post('/upload', (req:Request, res: Response) => {
+  try {
+    
+  } catch (error) {
+    
   }
 })
 

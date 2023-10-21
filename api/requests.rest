@@ -52,10 +52,15 @@ Content-Type: application/json
 
 ### getting phone based on id
 
-GET http://localhost:3001/phone
+GET http://localhost:3001/user/users
+Content-Type: application/json
+
+
+### Login with valid credentials
+POST   http://localhost:3001/user/login
 Content-Type: application/json
 
 {
-  "id": "1996dc00-6bd4-4a5e-ae19-51b8bbf0015e"
-}
-  
+  "email": "daniel.brown@example.com",
+  "password": "password123"
+} 
