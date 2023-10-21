@@ -75,7 +75,7 @@ export default function RegisterPhone() {
         <form onSubmit={RegisterPhone}>
           <h1 className='w3-center'>Add item</h1>
           <p>
-            <span className='w3-badge'>Tip</span> Section with *(asterisk) are
+            <span className='w3-badge'>Tip</span> Field with *(asterisk) are
             required.
           </p>
           <div className='w3-row-padding w3-margin-top'>

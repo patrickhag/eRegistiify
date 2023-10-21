@@ -7,14 +7,28 @@
   padding: 2rem;
 }
 
-/* @media (max-width: 768px) {
-  .sideBar {
+.w3-top {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+#SideBalr {
+  margin-top: "3rem";
+  margin-left: "23rem";
+  margin-right: "7rem";
+  background-color: green;
+}
+/* on extra small devices */
+@media (max-width: 768px) {
+  .SideBar {
     margin: 20% 5%;
   }
 }
 
+/*  */
 @media (max-width: 480px) {
-  .sideBar {
+  .SideBar {
     margin: 20% 5%;
   }
-} */
+}

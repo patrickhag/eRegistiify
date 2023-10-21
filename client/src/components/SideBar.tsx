@@ -2,8 +2,6 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
 export function Sidebar() {
-  const [isAccordionVisible, setIsAccordionVisible] = useState(false)
-
   const w3Open = () => {
     const sidebarElement = document.getElementById("mySidebar")
     const overlayElement = document.getElementById("myOverlay")
@@ -28,9 +26,11 @@ export function Sidebar() {
     w3Close()
   }, [])
 
-  const toggleAccordion = () => {
-    setIsAccordionVisible(!isAccordionVisible)
+  const logout = () => {
+    localStorage.clear()
+    // setRedirect(prev => !prev)
   }
+
   return (
     <div>
       <nav
@@ -46,7 +46,7 @@ export function Sidebar() {
         >
           Close Menu
         </Link>
-        <div className='w3-container'>
+        <div className='w3-container w3-hide-medium'>
           <h3 className='w3-padding-64'>
             <b>e-Registration</b>
           </h3>
@@ -54,38 +54,40 @@ export function Sidebar() {
         <div className='w3-bar-block'>
           <Link
             to={"/register-device"}
-            onClick={w3Close}
-            className='w3-bar-item w3-button w3-round'
+            className='w3-bar-item w3-button w3-round w3-hover-white'
           >
             <i className='fa fa-plus'></i> Register new item
           </Link>
           <Link
             to={"#"}
-            onClick={w3Close}
-            className='w3-bar-item w3-button w3-round'
+            className='w3-bar-item w3-button w3-round w3-hover-white'
           >
             <i className='fa fa-map-marker'></i> Track Device
           </Link>
           <Link
             to={"#"}
-            onClick={w3Close}
-            className='w3-bar-item w3-button w3-round'
+            className='w3-bar-item w3-button w3-round w3-hover-white'
           >
             <i className='fa fa-dollar'></i> Subscribe
           </Link>
           <Link
             to={"#"}
-            onClick={w3Close}
-            className='w3-bar-item w3-button w3-round'
+            className='w3-bar-item w3-button w3-round w3-hover-white'
           >
             <i className='fa fa-search'></i> Search lost device
           </Link>
           <Link
             to={"/items"}
-            onClick={w3Close}
-            className='w3-bar-item w3-button w3-round'
+            className='w3-bar-item w3-button w3-round w3-hover-white'
           >
             <i className='fa fa-th-list'></i> My items
+          </Link>
+          <Link
+            to={"/items"}
+            onClick={logout}
+            className='w3-bar-item w3-button w3-hover-white w3-display-bottomleft	'
+          >
+            <i className='fa fa-sign-out'></i> Logout
           </Link>
         </div>
       </nav>
@@ -98,7 +100,7 @@ export function Sidebar() {
         >
           ☰
         </Link>
-        <span>Rinda App</span>
+        <span>DeviceGUARD</span>
       </header>
 
       <div
@@ -108,7 +110,7 @@ export function Sidebar() {
         title='close side menu'
         id='myOverlay'
       ></div>
-      <div className='w3-bar w3-card'>
+      {/* <div className='w3-bar w3-card'>
         <p className='w3-bar-item w3-right' onClick={toggleAccordion}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -125,7 +127,7 @@ export function Sidebar() {
           <a className='w3-button w3-left-align w3-text-black'>Link 2</a>
           <a className='w3-button w3-left-align w3-text-black'>Link 3</a>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react"
-import Header from "../Header"
-import Footer from "../Footer"
+import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import { format } from "date-fns"
 import { CardToPrint } from "./CardToPrint"
 import { Sidebar } from "../components/SideBar"
+import "../styles.css"
 
 export interface allPhoneTypes {
   id: number
@@ -17,20 +16,25 @@ export interface allPhoneTypes {
   imeiNumber: string
 }
 
+interface CardVisibility {
+  [key: string]: boolean
+}
+
 export default function Items() {
   const [allPhones, setAllPhones] = useState<allPhoneTypes[]>([])
-  const [cardVisibility, setCardVisibility] = useState({})
+  const [cardVisibility, setCardVisibility] = useState<CardVisibility>({})
   const data = localStorage.getItem("token")
   const parsedData = data ? JSON.parse(data) : null
   const { id } = parsedData ?? {}
+  const [file, setFile] = useState<Blob | string>("")
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
 
-  const HandlePrint = id => {
+  const HandlePrint = (id: number) => {
     setCardVisibility(prevVisibility => ({
       ...prevVisibility,
       [id]: !prevVisibility[id] || false,
     }))
   }
-
   useEffect(() => {
     function getPhoneInfo() {
       fetch(`http://localhost:3001/phone/${id}`)
@@ -40,6 +44,29 @@ export default function Items() {
     }
     getPhoneInfo()
   }, [id])
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0])
+    }
+  }
+
+  const handleUpload = () => {
+    const formData = new FormData()
+    formData.append("file", file)
+
+    fetch("http://localhost:3001/phone/upload", {
+      method: "POST",
+      body: formData,
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+      })
+      .catch(error => {
+        console.error("Error:", error)
+      })
+  }
 
   const phoneElements = allPhones.map(phone => {
     const isCardVisible = cardVisibility[phone.id] || false
@@ -53,18 +80,20 @@ export default function Items() {
         {isCardVisible && <CardToPrint {...phone} />}
         <h1>{phone.brand} </h1>
         <hr />
-        <Link
-          to={"/register-device"}
-          className='w3-button w3-light-grey w3-margin-right'
-        >
-          Register New Item
-        </Link>
-        <button
-          className='w3-button w3-teal'
-          onClick={() => HandlePrint(phone.id)}
-        >
-          Print Item Identity
-        </button>
+        <div className='w3-row'>
+          <Link
+            to={"/register-device"}
+            className='w3-button w3-light-grey w3-margin w3-round'
+          >
+            Register New Item
+          </Link>
+          <button
+            className='w3-button w3-teal w3-margin w3-round'
+            onClick={() => HandlePrint(phone.id)}
+          >
+            Print Item Certificate
+          </button>
+        </div>
         <hr />
         <h3>Details</h3>
         <div className='w3-row'>
@@ -87,18 +116,7 @@ export default function Items() {
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{phone.priceOfPhone}
             </p>
           </div>
-          <div className='w3-col m4 w3-padding-right'>
-            <h3 className='w3-opacity'>Description</h3>
-            <p
-              style={{
-                padding: "5px",
-                border: "1px solid grey",
-                borderRadius: "3px",
-              }}
-            >
-              {phone.description}
-            </p>
-          </div>
+
           <div className='w3-col m4'>
             <h3 className='w3-opacity '>Reported Status</h3>
             <p
@@ -125,8 +143,18 @@ export default function Items() {
                 This phone currently has no images. Add one now!
               </span>
               &nbsp;
-              <input type='file' className='w3-input' />
-              <button className='w3-button w3-margin-top'>Upload</button>
+              <input
+                type='file'
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                className='w3-input'
+              />
+              <button
+                className='w3-button w3-margin-top w3-round'
+                onChange={handleUpload}
+              >
+                Upload
+              </button>
             </p>
           </div>
           <br />
@@ -139,11 +167,11 @@ export default function Items() {
     <>
       <Sidebar />
       <div
-        className='w3-display-container w3-white'
-        style={{ marginTop: "3rem", marginLeft: "23rem", marginRight: "7rem" }}
+        className='w3-display-container w3-white SideBalr'
+        // style={{ marginTop: "3rem", marginLeft: "23rem", marginRight: "7rem" }}
       >
         <h1 className='w3-center'>Your items</h1>
-        <div className='w3-row' style={{ padding: "5%" }}>
+        <div className='w3-container' /* style={{ padding: "5%" }} */>
           {phoneElements}
         </div>
       </div>
