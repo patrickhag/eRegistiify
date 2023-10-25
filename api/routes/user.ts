@@ -10,7 +10,7 @@ const JWT_SECRECY = process.env.JWT_SECRECY || "default_secret_key"
 // REGISTERING USER
 router.post("/", async (req: Request, res: Response) => {
   const { names, contactInfo, email, nationalId, address, password } = req.body
-
+  console.log(req.body)
   const oldUser = await prisma.user.findUnique({
     where: {
       email: email,

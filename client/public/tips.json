@@ -1,0 +1,36 @@
+{
+  "tips": [
+    {
+      "title": "Enhanced Security",
+      "content": "E-wedgates employs state-of-the-art security protocols to protect your devices. Your data is encrypted, and you have full control over who can access it. Rest assured that your information is safe and secure."
+    },
+    {
+      "title": "User-Friendly Interface",
+      "content": "Our app offers an intuitive and user-friendly interface for device registration. You'll find it easy to add and manage your devices with just a few taps. No technical expertise required!"
+    },
+    {
+      "title": "Remote Device Management",
+      "content": "E-wedgates allows you to manage your registered devices remotely. If a device is lost or stolen, you can lock it, locate it, or wipe sensitive data to prevent unauthorized access. Your control is at your fingertips."
+    },
+    {
+      "title": "Instant Notifications",
+      "content": "Receive real-time notifications about any suspicious activity related to your registered devices. Stay informed and take action quickly to ensure your security."
+    },
+    {
+      "title": "Multi-Platform Support",
+      "content": "E-wedgates is available on various platforms, ensuring compatibility with a wide range of devices. You can use the app on your smartphone, tablet, or desktop computer for maximum convenience."
+    },
+    {
+      "title": "Secure Access Sharing",
+      "content": "Share access to your registered devices securely with trusted individuals. Control who can manage or access your devices, ensuring that your data remains in trusted hands."
+    },
+    {
+      "title": "Privacy Control",
+      "content": "Maintain complete privacy over your personal data. E-wedgates respects your privacy rights and only collects essential information for device registration."
+    },
+    {
+      "title": "Frequent Updates",
+      "content": "Our team is committed to your security. We regularly update the app to address any security vulnerabilities and improve its performance. With E-wedgates, you're always up-to-date."
+    }
+  ]
+}

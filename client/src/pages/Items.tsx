@@ -27,14 +27,18 @@ export default function Items() {
   const parsedData = data ? JSON.parse(data) : null
   const { id } = parsedData ?? {}
   const [file, setFile] = useState<Blob | string>("")
+  const [img, setSrc] = useState<string | ArrayBuffer | null | undefined>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
-
+  const [status, setStatus] = useState<
+    "success" | "error" | "idle" | "loading"
+  >("idle")
   const HandlePrint = (id: number) => {
     setCardVisibility(prevVisibility => ({
       ...prevVisibility,
       [id]: !prevVisibility[id] || false,
     }))
   }
+
   useEffect(() => {
     function getPhoneInfo() {
       fetch(`http://localhost:3001/phone/${id}`)
@@ -47,25 +51,36 @@ export default function Items() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0]
+      const fileReader = new FileReader()
+      fileReader.onload = ev => {
+        setSrc(ev.target?.result)
+      }
+      fileReader.readAsDataURL(file)
       setFile(e.target.files[0])
     }
   }
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     const formData = new FormData()
     formData.append("file", file)
-
-    fetch("http://localhost:3001/phone/upload", {
-      method: "POST",
-      body: formData,
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
+    try {
+      setStatus("loading")
+      const req = await fetch("http://localhost:3001/phone/upload", {
+        method: "POST",
+        body: formData,
       })
-      .catch(error => {
-        console.error("Error:", error)
-      })
+      if (req.ok) {
+        setStatus("success")
+        const data = await req.json()
+        console.log(data.message)
+      } else {
+        setStatus("error")
+      }
+    } catch (err) {
+      setStatus("error")
+      console.error("Error:", err)
+    }
   }
 
   const phoneElements = allPhones.map(phone => {
@@ -78,9 +93,9 @@ export default function Items() {
         style={{ marginBottom: "2rem" }}
       >
         {isCardVisible && <CardToPrint {...phone} />}
-        <h1>{phone.brand} </h1>
+        <h1 className='w3-xlarge'>{phone.brand} </h1>
         <hr />
-        <div className='w3-row'>
+        <div className='w3-row w3-margin-top'>
           <Link
             to={"/register-device"}
             className='w3-button w3-light-grey w3-margin w3-round'
@@ -95,29 +110,29 @@ export default function Items() {
           </button>
         </div>
         <hr />
-        <h3>Details</h3>
+        <h3 className='w3-large w3-margin-top'>Details</h3>
         <div className='w3-row'>
-          <div className='w3-col m4'>
+          <div className='w3-col m4 w3-padding'>
             <p>
-              <span className='w3-opacity'>Brand</span>
+              <span className='w3-opacity w3-margin-top'>Brand</span>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{phone.brand}
             </p>
             <p>
-              <span className='w3-opacity'>Model</span>
+              <span className='w3-opacity w3-margin-top'>Model</span>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{phone.model}
             </p>
             <p>
-              <span className='w3-opacity'>Date Of Purchase</span>
+              <span className='w3-opacity w3-margin-top'>Date Of Purchase</span>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               {format(new Date(phone.dateOfPurchase), "yyyy-MMM-d")}
             </p>
             <p>
-              <span className='w3-opacity'>Price Of Phone</span>
+              <span className='w3-opacity w3-margin-top'>Price Of Phone</span>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{phone.priceOfPhone}
             </p>
           </div>
 
-          <div className='w3-col m4'>
+          <div className='w3-col m4 w3-padding'>
             <h3 className='w3-opacity '>Reported Status</h3>
             <p
               style={{
@@ -138,24 +153,38 @@ export default function Items() {
           <div>
             <h2>Images</h2>
             <hr />
-            <p className='w3-margin'>
+            <div className='w3-margin'>
               <span className='w3-opacity'>
                 This phone currently has no images. Add one now!
               </span>
               &nbsp;
-              <input
-                type='file'
-                ref={fileInputRef}
-                onChange={handleFileChange}
-                className='w3-input'
-              />
-              <button
-                className='w3-button w3-margin-top w3-round'
-                onChange={handleUpload}
-              >
-                Upload
-              </button>
-            </p>
+              {status !== "success" && (
+                <input
+                  type='file'
+                  ref={fileInputRef}
+                  onChange={handleFileChange}
+                  className='w3-input'
+                />
+              )}
+              <p>
+                {img && (
+                  <img
+                    src={img as string}
+                    alt=''
+                    style={{ width: "15rem", height: "15rem" }}
+                    className='w3-image'
+                  />
+                )}
+              </p>
+              {status !== "success" && (
+                <button
+                  className='w3-button w3-margin-top w3-round'
+                  onClick={handleUpload}
+                >
+                  Upload
+                </button>
+              )}
+            </div>
           </div>
           <br />
         </div>
@@ -168,9 +197,9 @@ export default function Items() {
       <Sidebar />
       <div
         className='w3-display-container w3-white SideBalr'
-        // style={{ marginTop: "3rem", marginLeft: "23rem", marginRight: "7rem" }}
+        style={{ marginTop: "3rem", marginLeft: "23rem", marginRight: "7rem" }}
       >
-        <h1 className='w3-center'>Your items</h1>
+        <h1 className='w3-center w3-xxlarge w3-padding-bottom'>Your items</h1>
         <div className='w3-container' /* style={{ padding: "5%" }} */>
           {phoneElements}
         </div>

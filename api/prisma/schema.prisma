@@ -29,7 +29,23 @@ model Phone {
   priceOfPhone   String
   description    String
   reportedStatus String
-  category       String @default("phone")
+  category       String   @default("phone")
   user           User     @relation(fields: [userId], references: [id])
   userId         String
+}
+
+model Lost_n_found {
+  id             String    @id @default(uuid())
+  category       String
+  imei_number    String?
+  serial_number  String?
+  make           String
+  model          String
+  description    String
+  recovered_date DateTime?
+}
+
+model device_category {
+  id                          String @id @default(uuid())
+  device_category_description String
 }

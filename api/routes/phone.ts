@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express"
 import { PrismaClient } from "@prisma/client"
+import multer from "multer"
 
 const prisma = new PrismaClient()
 const router = Router()
@@ -18,6 +19,8 @@ router.post("/", async (req: Request, res: Response) => {
       description,
       category,
     } = req.body
+
+    console.log(req.body)
 
     const date = new Date(dateOfPurchase)
 
@@ -79,12 +82,19 @@ router.get("/", async (req: Request, res: Response) => {
   }
 })
 
-router.post('/upload', (req:Request, res: Response) => {
-  try {
-    
-  } catch (error) {
-    
-  }
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/")
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname)
+  },
+})
+
+const upload = multer({ storage })
+
+router.post("/upload", upload.single("file"), (req, res) => {
+  res.json({ message: "File uploaded successfully", url: req.file })
 })
 
 export default router

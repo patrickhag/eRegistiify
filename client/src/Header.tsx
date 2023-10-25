@@ -74,7 +74,7 @@ export default function Header() {
                   className='w3-bar-item w3-button w3-mobile'
                   onClick={logout}
                 >
-                  Logout {}
+                  Logout 
                 </a>
               </div>
             </div>

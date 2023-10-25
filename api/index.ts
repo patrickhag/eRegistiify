@@ -9,6 +9,7 @@ import dotenv from "dotenv"
 const app = express()
 dotenv.config()
 
+app.use(express.static("./uploads"))
 app.use(express.json())
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }))
 app.use("/user", userRoutes)

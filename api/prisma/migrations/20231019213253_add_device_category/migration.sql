@@ -7,4 +7,3 @@
 -- AlterTable
 ALTER TABLE "Phone"
 ADD COLUMN "category" TEXT NOT NULL DEFAULT 'phone';
-

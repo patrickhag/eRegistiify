@@ -116,7 +116,7 @@ export const CardToPrint: React.FC<allPhoneTypes> = ({
         >
           <div className='w3-row'>
             <div className='w3-cell-row w3-margin-bottom'>
-              <h3 className='w3-xxlarge w3-cell'>e-Registration</h3>
+              <h3 className='w3-xxlarge w3-cell'>DeviceGUARD</h3>
               <img src={logo} alt='lOGO' className='w3-right' />
             </div>
             <div className='w3-col l3 s4'>

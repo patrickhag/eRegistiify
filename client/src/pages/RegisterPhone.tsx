@@ -126,7 +126,6 @@ export default function RegisterPhone() {
                 name='dateOfPurchase'
                 onChange={handleChange}
                 placeholder='Address'
-                required
               />
             </p>
             <p className='w3-half'>
