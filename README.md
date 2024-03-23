@@ -11,17 +11,6 @@ The Phone Registry Web App is a PERN stack application designed for storing user
 - Integration with PostgreSQL database for data persistence.
 - Utilization of Prisma as an Object-RelatiThe Phone Registry Web App is a PERN stack application designed for storing users' phones based on their Serial Number (S/N) or IMEI (International Mobile Equipment Identity). The app allows users to register their phones, issue white cards containing phone-related information, and maintain a centralized database for efficient phone tracking and management.
 
-## Features
-
-- Phone registration based on S/N or IMEI.
-- Generation of white cards containing phone information for registered users.
-- Efficient storage and retrieval of phone data.
-- Enhanced security measures to combat phone theft and unauthorized usage.
-- Integration with PostgreSQL database for data persistence.
-- Utilization of Prisma as an Object-Relational Mapping (ORM) tool for database operations.
-- RESTful API endpoints for interacting with the application.
-  onal Mapping (ORM) tool for database operations.
-- RESTful API endpoints for interacting with the application.
 
 ## Technologies Used
 
