@@ -1,4 +1,4 @@
-# The Phone Registry Web App
+# DeviceGUARD: Ultimate Device Registration Platform
 
 The Phone Registry Web App is a PERN stack application designed for storing users' phones based on their Serial Number (S/N) or IMEI (International Mobile Equipment Identity). The app allows users to register their phones, issue white cards containing phone-related information, and maintain a centralized database for efficient phone tracking and management.
 
